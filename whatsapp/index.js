@@ -1,8 +1,7 @@
-const exportMsg = require('./utils/exportMsg');
+// const exportMsg = require('../utils/exportMsg.js');
 const { useMultiFileAuthState, DisconnectReason } = require('@whiskeysockets/baileys');
-
 const makeWASocket = require('@whiskeysockets/baileys').default;
-
+let msgValue = null;
 async function connectionLogic() {
     const { state, saveCreds } = await useMultiFileAuthState("auth_info_baileys")
     const sock = makeWASocket({
@@ -35,11 +34,13 @@ async function connectionLogic() {
     sock.ev.on("messages.upsert", (messageInfoUpsert) => {
         console.log(messageInfoUpsert)
         //listening to the message here
-        const msgValue = messageInfoUpsert.messages[0].message.conversation
-        exportMsg.setConversationValue(msgValue)
+        console.log(messageInfoUpsert.messages[0].message.conversation)
+        msgValue = messageInfoUpsert.messages[0].message.conversation
+        console.log(msgValue)
     })
     sock.ev.on("creds.update", saveCreds)
 
 }
 
 connectionLogic();
+module.exports = msgValue

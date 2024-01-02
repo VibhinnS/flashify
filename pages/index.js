@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import {msgValue} from '../../whatsapp/index.js'
 
 const Home = () => {
   const [userInput, setUserInput] = useState('');
@@ -14,7 +15,8 @@ const Home = () => {
 
   const callGenerateEndpoint = async () => {
     setIsGenerating(true);
-    
+    console.log(msgValue)
+  
     const response = await fetch('/api/generate', {
       method: 'POST',
       headers: {

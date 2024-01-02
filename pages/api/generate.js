@@ -1,3 +1,6 @@
+const exportedValue = require('../../utils/exportMsg.js');
+const conversationValue = exportedValue.setConversationValue()
+
 import { Configuration, OpenAIApi } from 'openai';
 
 const configuration = new Configuration({
@@ -44,6 +47,7 @@ Message:
 const generateAction = async (req, res) => {
   // Run first prompt
 //   console.log(`API: ${basePromptPrefix}${req.body.userInput}`)
+  // console.log(conversationValue)
 
   const baseCompletion = await openai.createCompletion({
     model: 'text-davinci-003',
